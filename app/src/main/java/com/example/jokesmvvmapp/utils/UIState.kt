@@ -7,7 +7,7 @@ import com.example.jokesmvvmapp.models.JokesResponse
 //pass dynamic parameters to child
 sealed class UIState{
     object LOADING : UIState()
-    data class SUCCESS(val response: JokesResponse): UIState()
+    data class SUCCESS<T>(val response: T): UIState()
     data class ERROR(val error: Exception): UIState()
 }
 

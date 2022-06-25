@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.jokesmvvmapp.adapter.JokesAdapter
 import com.example.jokesmvvmapp.databinding.FragmentNeverendingListBinding
+import com.example.jokesmvvmapp.models.JokesResponse
 
 import com.example.jokesmvvmapp.utils.UIState
 
@@ -43,7 +44,8 @@ class NeverEndingFragment : BaseFragment() {
                     binding.loadingSpinner.visibility = View.VISIBLE
                     binding.jokesRecycler.visibility = View.GONE
                 }
-                is UIState.SUCCESS-> {
+                is UIState.SUCCESS<*> -> {
+                    (state as UIState.SUCCESS<JokesResponse>).response
                     binding.loadingSpinner.visibility = View.GONE
                     binding.jokesRecycler.visibility = View.VISIBLE
 

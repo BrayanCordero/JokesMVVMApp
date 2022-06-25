@@ -15,7 +15,7 @@ interface JokesService {
     @GET(CHANGE_NAME_URL)
     suspend fun changeName(firstName:String, lastName:String?=null):Response<JokesResponse>
 
-    @GET()
+    @GET(RANDOM_URL)
     suspend fun getRandomJoke():Response<Joke>
 
 //for get a joke by id need to put @PATH("path_name") name:Type?= null as a parameter
