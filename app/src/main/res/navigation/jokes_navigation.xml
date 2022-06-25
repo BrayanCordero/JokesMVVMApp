@@ -3,13 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/jokes_navigation"
-    app:startDestination="@id/NeverEndingFragment">
+    app:startDestination="@id/navigation_never_ending_fragment">
 
     <fragment
-        android:id="@+id/NeverEndingFragment"
+        android:id="@+id/navigation_never_ending_fragment"
         android:name="com.example.jokesmvvmapp.view.NeverEndingFragment"
         tools:layout="@layout/fragment_neverending_list"
         android:label="NeverEndingJokes">
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_random_joke_fragment"
+        android:name="com.example.jokesmvvmapp.view.RandomJokeFragment"
+        android:label="RandomJoke"
+        tools:layout="@layout/fragment_random_joke">
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_change_name_fragment"
+        android:name="com.example.jokesmvvmapp.view.ChangeNameFragment"
+        tools:layout="@layout/fragment_change_name"
+        android:label="ChangeName">
+
     </fragment>
 
 
