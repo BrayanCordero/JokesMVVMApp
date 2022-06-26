@@ -1,6 +1,6 @@
 package com.example.jokesmvvmapp.viewModel
 
-import android.provider.Contacts
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,8 +11,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 import javax.inject.Inject
+import kotlin.Exception
+
 //3) can have as many view models as needed
 
 @HiltViewModel
@@ -27,6 +28,12 @@ class JokesViewModel @Inject constructor(
 
     private val _randomJoke: MutableLiveData<UIState> = MutableLiveData(UIState.LOADING)
     val randomJoke: LiveData<UIState> get() = _randomJoke
+
+    private val _changeName: MutableLiveData<UIState> = MutableLiveData(UIState.LOADING)
+    val changeName: LiveData<UIState> get() = _changeName
+
+    private var _firstName:String =""
+    private var _lastName:String? = ""
 
     fun getAllJokes(){
         CoroutineScope(Dispatchers.IO).launch {
@@ -71,6 +78,32 @@ class JokesViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun changeName(){
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = jokesRepository.changeName(_firstName, _lastName)
+                if (response.isSuccessful){
+                    response.body()?.let {
+                        withContext(Dispatchers.Main){
+                            _changeName.value = UIState.SUCCESS(it.value?.joke)
+                        }
+                    }?:throw Exception("DATA IS NULL")
+                }else{
+                    throw Exception(response.errorBody()?.string())
+                }
+            }catch (e:Exception){
+                withContext(Dispatchers.Main){
+                    _changeName.postValue(UIState.ERROR(e))
+                }
+            }
+        }
+    }
+
+     fun setNames(firstName: String, lastName: String?){
+        _firstName = firstName
+        _lastName = lastName
     }
 
     override fun onCleared() {

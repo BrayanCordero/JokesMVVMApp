@@ -5,6 +5,7 @@ import com.example.jokesmvvmapp.models.JokesResponse
 import com.example.jokesmvvmapp.models.RandomJoke
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 
 //1) network to make calls to api
@@ -14,7 +15,10 @@ interface JokesService {
     suspend fun getAllJokes():Response<JokesResponse>
 
     @GET(CHANGE_NAME_URL)
-    suspend fun changeName(firstName:String, lastName:String?=null):Response<JokesResponse>
+    suspend fun changeName(
+        @Query("firstName")firstName:String,
+        @Query("lastName") lastName:String?=null
+    ):Response<RandomJoke>
 
     @GET(RANDOM_URL)
     suspend fun getRandomJoke():Response<RandomJoke>
@@ -30,7 +34,7 @@ interface JokesService {
         private const val RANDOM_URL = "random"
 
         //change name http://api.icndb.com/jokes/random?firstName=John&lastName=Doe
-        private const val CHANGE_NAME_URL="random?firstName={firstName}&lastName={lastName}"
+        private const val CHANGE_NAME_URL="random?firstName=&lastName="
 
         //specific joke url http://api.icndb.com/jokes/<id>
 //        private const val ID_URL = "{id}"

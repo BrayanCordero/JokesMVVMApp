@@ -4,12 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.267" />
+        <entry key="app/src/main/res/drawable/ic_baseline_create_24.xml" value="0.251" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.267" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2776268115942029" />
-        <entry key="app/src/main/res/layout/fragment_change_name.xml" value="0.284375" />
+        <entry key="app/src/main/res/layout/fragment_change_name.xml" value="0.28370819091796873" />
         <entry key="app/src/main/res/layout/fragment_never_ending.xml" value="0.2776268115942029" />
         <entry key="app/src/main/res/layout/fragment_neverending_list.xml" value="0.3188405797101449" />
-        <entry key="app/src/main/res/layout/fragment_random_joke.xml" value="0.18369598388671876" />
+        <entry key="app/src/main/res/layout/fragment_random_joke.xml" value="0.21385803222656252" />
         <entry key="app/src/main/res/layout/joke_item.xml" value="0.2776268115942029" />
         <entry key="app/src/main/res/menu/joke_menu.xml" value="0.2833333333333333" />
       </map>

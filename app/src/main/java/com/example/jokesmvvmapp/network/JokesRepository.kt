@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 interface JokesRepository {
    suspend fun getAllJokes():Response<JokesResponse>
-   suspend fun changeName(firstName:String, lastName:String?):Response<JokesResponse>
+   suspend fun changeName(firstName:String, lastName:String?):Response<RandomJoke>
    suspend fun getRandomJoke():Response<RandomJoke>
 }
 
@@ -22,7 +22,7 @@ class JokesRepositoryImpl @Inject constructor(
         jokesService.getAllJokes()
 
 
-    override suspend fun changeName(firstName:String, lastName:String?):Response<JokesResponse> =
+    override suspend fun changeName(firstName:String, lastName:String?):Response<RandomJoke> =
         jokesService.changeName(firstName,lastName)
 
     override suspend fun getRandomJoke(): Response<RandomJoke> =
