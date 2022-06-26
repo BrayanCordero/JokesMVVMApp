@@ -55,8 +55,10 @@ class NeverEndingFragment : BaseFragment() {
                     binding.loadingSpinner.visibility = View.GONE
                     binding.jokesRecycler.visibility = View.GONE
 
-                    showError(state.error.localizedMessage){
-                        jokesViewModel.getAllJokes()
+                    state.error.localizedMessage?.let {
+                        showError(it){
+                            jokesViewModel.getAllJokes()
+                        }
                     }
                 }
             }

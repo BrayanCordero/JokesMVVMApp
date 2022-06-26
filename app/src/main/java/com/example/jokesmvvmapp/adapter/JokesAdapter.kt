@@ -10,6 +10,7 @@ import com.example.jokesmvvmapp.models.Joke
 class JokesAdapter(
     private val jokeSet : MutableList<Joke> = mutableListOf(),
     private val onJokeClicked:(String?)->Unit
+
 ): RecyclerView.Adapter<JokesViewHolder>() {
 
     fun updateNewJokes(newJokes: List<Joke>){

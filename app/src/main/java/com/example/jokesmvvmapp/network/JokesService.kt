@@ -2,6 +2,7 @@ package com.example.jokesmvvmapp.network
 
 import com.example.jokesmvvmapp.models.Joke
 import com.example.jokesmvvmapp.models.JokesResponse
+import com.example.jokesmvvmapp.models.RandomJoke
 import retrofit2.Response
 import retrofit2.http.GET
 
@@ -16,7 +17,7 @@ interface JokesService {
     suspend fun changeName(firstName:String, lastName:String?=null):Response<JokesResponse>
 
     @GET(RANDOM_URL)
-    suspend fun getRandomJoke():Response<Joke>
+    suspend fun getRandomJoke():Response<RandomJoke>
 
 //for get a joke by id need to put @PATH("path_name") name:Type?= null as a parameter
     // ex) getRandomJoke(@PATH("id") id:String? = null

@@ -1,5 +1,6 @@
 package com.example.jokesmvvmapp.viewModel
 
+import android.provider.Contacts
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,6 +24,9 @@ class JokesViewModel @Inject constructor(
     private val _jokes: MutableLiveData<UIState> = MutableLiveData(UIState.LOADING)
     //liveData can only read values
     val jokes: LiveData<UIState> get() = _jokes
+
+    private val _randomJoke: MutableLiveData<UIState> = MutableLiveData(UIState.LOADING)
+    val randomJoke: LiveData<UIState> get() = _randomJoke
 
     fun getAllJokes(){
         CoroutineScope(Dispatchers.IO).launch {
@@ -48,8 +52,30 @@ class JokesViewModel @Inject constructor(
         }
     }
 
+    fun getRandomJoke(){
+        CoroutineScope(Dispatchers.IO).launch {
+            try{
+                val response = jokesRepository.getRandomJoke()
+                if(response.isSuccessful){
+                    response.body()?.let {
+                        withContext(Dispatchers.Main){
+                            _randomJoke.value= UIState.SUCCESS(it.value?.joke)
+                        }
+                    }?:throw Exception("DATA IS NULL")
+                }else{
+                    throw Exception(response.errorBody()?.string())
+                }
+            }catch (e:Exception){
+                withContext(Dispatchers.Main){
+                    _randomJoke.postValue(UIState.ERROR(e))
+                }
+            }
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         //remove view model here
+
     }
 }
