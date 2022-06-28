@@ -45,8 +45,8 @@ class RandomJokeFragment : BaseFragment(){
 
                     }
                     is UIState.SUCCESS<*> -> {
-//                        (state as UIState.SUCCESS<JokesResponse>).response
-                        binding.randomJokeText.text = state.response.toString()
+                         (state as UIState.SUCCESS<Joke>).response
+                        binding.randomJokeText.text = state.response.joke
 
 
 

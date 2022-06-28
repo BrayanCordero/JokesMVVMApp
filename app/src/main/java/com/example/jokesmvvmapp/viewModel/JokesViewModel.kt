@@ -35,10 +35,12 @@ class JokesViewModel @Inject constructor(
     private var _firstName:String =""
     private var _lastName:String? = ""
 
+    private val number:Int = 10
+
     fun getAllJokes(){
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = jokesRepository.getAllJokes()
+                val response = jokesRepository.get10Jokes(number)
                 if(response.isSuccessful){
                     response.body()?.let {
                         withContext(Dispatchers.Main){
@@ -66,7 +68,7 @@ class JokesViewModel @Inject constructor(
                 if(response.isSuccessful){
                     response.body()?.let {
                         withContext(Dispatchers.Main){
-                            _randomJoke.value= UIState.SUCCESS(it.value?.joke)
+                            _randomJoke.value= UIState.SUCCESS(it.value)
                         }
                     }?:throw Exception("DATA IS NULL")
                 }else{

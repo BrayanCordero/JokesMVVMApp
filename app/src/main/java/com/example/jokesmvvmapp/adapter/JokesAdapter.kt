@@ -14,7 +14,7 @@ class JokesAdapter(
 ): RecyclerView.Adapter<JokesViewHolder>() {
 
     fun updateNewJokes(newJokes: List<Joke>){
-        jokeSet.clear()
+//        jokeSet.clear()
         jokeSet.addAll(newJokes)
         notifyDataSetChanged()
     }

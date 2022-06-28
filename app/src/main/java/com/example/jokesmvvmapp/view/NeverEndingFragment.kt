@@ -1,10 +1,12 @@
 package com.example.jokesmvvmapp.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.example.jokesmvvmapp.adapter.JokesAdapter
 import com.example.jokesmvvmapp.databinding.FragmentNeverendingListBinding
@@ -25,6 +27,7 @@ class NeverEndingFragment : BaseFragment() {
 
         }
     }
+    private var isLoading = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,8 +35,9 @@ class NeverEndingFragment : BaseFragment() {
     ): View? {
         // Inflate the layout for this fragment
 
+        val linearLayout = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.jokesRecycler.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            layoutManager = linearLayout
             adapter = jokesAdapter
         }
 
@@ -41,6 +45,7 @@ class NeverEndingFragment : BaseFragment() {
         jokesViewModel.jokes.observe(viewLifecycleOwner){ state->
             when(state){
                 is UIState.LOADING-> {
+                    isLoading = true
                     binding.loadingSpinner.visibility = View.VISIBLE
                     binding.jokesRecycler.visibility = View.GONE
                 }
@@ -49,7 +54,9 @@ class NeverEndingFragment : BaseFragment() {
                     binding.loadingSpinner.visibility = View.GONE
                     binding.jokesRecycler.visibility = View.VISIBLE
 
+
                     jokesAdapter.updateNewJokes(state.response.value?: emptyList())
+                    isLoading = false
                 }
                 is UIState.ERROR-> {
                     binding.loadingSpinner.visibility = View.GONE
@@ -63,6 +70,26 @@ class NeverEndingFragment : BaseFragment() {
                 }
             }
         }
+
+
+        binding.jokesRecycler.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                            val visibleItemCount: Int = binding.jokesRecycler.layoutManager!!.childCount
+                            val lastVisibleItem: Int = linearLayout.findLastVisibleItemPosition()
+                            val total = linearLayout.itemCount
+                Log.d("Scroll","$visibleItemCount")
+                Log.d("Scroll","$lastVisibleItem")
+
+                if(!isLoading){
+                    if(visibleItemCount+ lastVisibleItem >= total){
+                        jokesViewModel.getAllJokes()
+
+                    }
+                }
+            }
+        })
 
         jokesViewModel.getAllJokes()
 
