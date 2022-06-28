@@ -64,7 +64,7 @@ class NeverEndingFragment : BaseFragment() {
 
                     state.error.localizedMessage?.let {
                         showError(it){
-                            jokesViewModel.getAllJokes()
+                            jokesViewModel.get20RandomJokes()
                         }
                     }
                 }
@@ -84,19 +84,22 @@ class NeverEndingFragment : BaseFragment() {
 
                 if(!isLoading){
                     if(visibleItemCount+ lastVisibleItem >= total){
-                        jokesViewModel.getAllJokes()
+                        jokesViewModel.get20RandomJokes()
 
                     }
                 }
             }
         })
 
-        jokesViewModel.getAllJokes()
-
-
-
+        jokesViewModel.get20RandomJokes()
 
         return binding.root
+    }
+
+    override fun onStop() {
+        super.onStop()
+        jokesAdapter.clearJokes()
+
     }
 
 //    override fun onStop() {

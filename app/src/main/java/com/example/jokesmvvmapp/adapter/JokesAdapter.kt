@@ -19,6 +19,10 @@ class JokesAdapter(
         notifyDataSetChanged()
     }
 
+    fun clearJokes(){
+        jokeSet.clear()
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JokesViewHolder =
         JokesViewHolder(

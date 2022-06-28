@@ -25,7 +25,7 @@ interface JokesService {
     suspend fun getRandomJoke():Response<RandomJoke>
 
     @GET(RANDOM_COUNT_URL)
-    suspend fun get10Jokes(
+    suspend fun get20Jokes(
         @Path("number") number: Int
     ): Response<JokesResponse>
 

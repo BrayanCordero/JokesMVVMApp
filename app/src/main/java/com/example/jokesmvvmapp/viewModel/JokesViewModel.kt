@@ -35,12 +35,12 @@ class JokesViewModel @Inject constructor(
     private var _firstName:String =""
     private var _lastName:String? = ""
 
-    private val number:Int = 10
+    private val number:Int = 20
 
-    fun getAllJokes(){
+    fun get20RandomJokes(){
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = jokesRepository.get10Jokes(number)
+                val response = jokesRepository.get20Jokes(number)
                 if(response.isSuccessful){
                     response.body()?.let {
                         withContext(Dispatchers.Main){

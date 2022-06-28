@@ -12,7 +12,7 @@ interface JokesRepository {
    suspend fun getAllJokes():Response<JokesResponse>
    suspend fun changeName(firstName:String, lastName:String?):Response<RandomJoke>
    suspend fun getRandomJoke():Response<RandomJoke>
-   suspend fun get10Jokes(number : Int): Response<JokesResponse>
+   suspend fun get20Jokes(number : Int): Response<JokesResponse>
 }
 
 class JokesRepositoryImpl @Inject constructor(
@@ -29,8 +29,8 @@ class JokesRepositoryImpl @Inject constructor(
     override suspend fun getRandomJoke(): Response<RandomJoke> =
         jokesService.getRandomJoke()
 
-    override suspend fun get10Jokes(number: Int): Response<JokesResponse> =
-        jokesService.get10Jokes(number)
+    override suspend fun get20Jokes(number: Int): Response<JokesResponse> =
+        jokesService.get20Jokes(number)
 
 
 
